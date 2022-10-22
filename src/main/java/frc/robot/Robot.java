@@ -132,6 +132,9 @@ public class Robot extends TimedRobot {
       if(controller.getRawButton(1)){
         intakeMotor.set(ControlMode.PercentOutput, 0.9);
       }
+      else{
+        intakeMotor.set(ControlMode.PercentOutput, 0);
+      }
 
       SmartDashboard.putNumber("Left Motor Percent Output", leftJoystickPercent);
       SmartDashboard.putNumber("Right Motor Percent Output", rightJoystickPercent);
