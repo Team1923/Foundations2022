@@ -5,10 +5,20 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.ArcadeDriveCommand;
+import frc.robot.commands.FirstAuton;
+import frc.robot.commands.RunConveyorCommand;
+import frc.robot.commands.RunIntakeCommand;
+import frc.robot.commands.RunShooterCommand;
+import frc.robot.commands.TankDriveCommand;
+import frc.robot.subsystems.Conveyor;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -18,14 +28,23 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private Drivetrain DRIVETRAIN_SUBSYSTEM = new Drivetrain();
+  private Intake INTAKE_SUBSYSTEM = new Intake();
+  private Conveyor CONVEYOR_SUBSYSTEM = new Conveyor();
+  private Shooter SHOOTER_SUBSSYSTEM = new Shooter();
+
+  private Joystick CONTROLLER = new Joystick(0);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+
+    setDefaultCommands();
+    DRIVETRAIN_SUBSYSTEM.setDefaultCommand(new TankDriveCommand(DRIVETRAIN_SUBSYSTEM, CONTROLLER));
+
+ 
   }
 
   /**
@@ -34,7 +53,18 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    new JoystickButton(CONTROLLER, 1).whileHeld(new RunIntakeCommand(INTAKE_SUBSYSTEM));
+    new JoystickButton(CONTROLLER, 3).whileHeld(new RunConveyorCommand(CONVEYOR_SUBSYSTEM));
+    new JoystickButton(CONTROLLER, 4).whileHeld(new RunShooterCommand(SHOOTER_SUBSSYSTEM));
+    /*
+      X is 3
+      Y is 4
+    */
+  }
+
+  public void setDefaultCommands(){
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -43,6 +73,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return new FirstAuton(DRIVETRAIN_SUBSYSTEM, INTAKE_SUBSYSTEM);
   }
 }

@@ -25,7 +25,7 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  private WPI_TalonFX leftMotor1 = new WPI_TalonFX(0);
+  //private WPI_TalonFX leftMotor1 = new WPI_TalonFX(1);
 
   /*
   write code to create the following motors:
@@ -36,17 +36,17 @@ public class Robot extends TimedRobot {
   - rightMotor3 (5)
   */
 
-  private WPI_TalonFX leftMotor2 = new WPI_TalonFX(1);
-  private WPI_TalonFX leftMotor3 = new WPI_TalonFX(2);
-  private WPI_TalonFX rightMotor1 = new WPI_TalonFX(3);
-  private WPI_TalonFX rightMotor2 = new WPI_TalonFX(4);
-  private WPI_TalonFX rightMotor3 = new WPI_TalonFX(5);
+  // private WPI_TalonFX leftMotor2 = new WPI_TalonFX(2);
+  // private WPI_TalonFX leftMotor3 = new WPI_TalonFX(3);
+  // private WPI_TalonFX rightMotor1 = new WPI_TalonFX(4);
+  // private WPI_TalonFX rightMotor2 = new WPI_TalonFX(5);
+  // private WPI_TalonFX rightMotor3 = new WPI_TalonFX(6);
 
   //create a Joystick object
-  private Joystick controller = new Joystick(0);
+  // private Joystick controller = new Joystick(0);
 
-  //create intake motor
-  private WPI_TalonFX intakeMotor = new WPI_TalonFX(6);
+  // //create intake motor
+  // private WPI_TalonFX intakeMotor = new WPI_TalonFX(6);
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -58,16 +58,16 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
-    //invert the "right" side of the drivetrain
-    rightMotor1.setInverted(InvertType.InvertMotorOutput);
-    rightMotor2.setInverted(InvertType.InvertMotorOutput);
-    rightMotor3.setInverted(InvertType.InvertMotorOutput);
+    // //invert the "right" side of the drivetrain
+    // rightMotor1.setInverted(InvertType.InvertMotorOutput);
+    // rightMotor2.setInverted(InvertType.InvertMotorOutput);
+    // rightMotor3.setInverted(InvertType.InvertMotorOutput);
 
-    //follow the "leaders" of the right and the left side to minimize the amount of code we need to write
-    leftMotor2.follow(leftMotor1);
-    leftMotor3.follow(leftMotor1);
-    rightMotor2.follow(rightMotor1);
-    rightMotor3.follow(rightMotor1);
+    // //follow the "leaders" of the right and the left side to minimize the amount of code we need to write
+    // leftMotor2.follow(leftMotor1);
+    // leftMotor3.follow(leftMotor1);
+    // rightMotor2.follow(rightMotor1);
+    // rightMotor3.follow(rightMotor1);
 
   }
 
@@ -124,20 +124,20 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     //percent output: ranges from -1 to 1
-      double leftJoystickPercent = -controller.getRawAxis(1);
-      double rightJoystickPercent = -controller.getRawAxis(5);
-      leftMotor1.set(ControlMode.PercentOutput, leftJoystickPercent);
-      rightMotor1.set(ControlMode.PercentOutput, rightJoystickPercent);
+      // double leftJoystickPercent = controller.getRawAxis(1);
+      // double rightJoystickPercent = controller.getRawAxis(5);
+      // leftMotor1.set(ControlMode.PercentOutput, leftJoystickPercent);
+      // rightMotor1.set(ControlMode.PercentOutput, rightJoystickPercent);
 
-      if(controller.getRawButton(1)){
-        intakeMotor.set(ControlMode.PercentOutput, 0.9);
-      }
-      else{
-        intakeMotor.set(ControlMode.PercentOutput, 0);
-      }
+      // if(controller.getRawButton(1)){
+      //   intakeMotor.set(ControlMode.PercentOutput, 0.9);
+      // }
+      // else{
+      //   intakeMotor.set(ControlMode.PercentOutput, 0);
+      // }
 
-      SmartDashboard.putNumber("Left Motor Percent Output", leftJoystickPercent);
-      SmartDashboard.putNumber("Right Motor Percent Output", rightJoystickPercent);
+      // SmartDashboard.putNumber("Left Motor Percent Output", leftJoystickPercent);
+      // SmartDashboard.putNumber("Right Motor Percent Output", rightJoystickPercent);
 
   }
 
