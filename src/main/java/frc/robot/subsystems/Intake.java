@@ -13,6 +13,7 @@ public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   private WPI_TalonFX intakeMotor = new WPI_TalonFX(11);
   public Intake() {
+    
   }
 
   @Override
@@ -21,7 +22,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void set(double intakePercent){
-    intakeMotor.set(ControlMode.PercentOutput, intakePercent);
+    intakeMotor.set(ControlMode.PercentOutput, -intakePercent);
   }
 
   public void stop(){

@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drivetrain extends SubsystemBase {
@@ -49,11 +50,14 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
   }
 
   public void set(double leftPercent, double rightPercent){
     leftPrimary.set(ControlMode.PercentOutput, leftPercent);
     rightPrimary.set(ControlMode.PercentOutput, rightPercent);
+    SmartDashboard.putNumber("SPEED", leftPercent);
+
   }
 
   public void stop(){

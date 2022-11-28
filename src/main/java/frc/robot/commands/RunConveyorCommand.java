@@ -12,7 +12,6 @@ public class RunConveyorCommand extends CommandBase {
   /** Creates a new RunConveyorCommand. */
 
   private Conveyor conveyor;
-  private Joystick controller;
   
   public RunConveyorCommand(Conveyor c) {
     // Use addRequirements() here to declare subsystem dependencies.

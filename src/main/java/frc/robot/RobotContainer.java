@@ -12,7 +12,8 @@ import frc.robot.commands.FirstAuton;
 import frc.robot.commands.RunConveyorCommand;
 import frc.robot.commands.RunIntakeCommand;
 import frc.robot.commands.RunShooterCommand;
-import frc.robot.commands.TankDriveCommand;
+import frc.robot.commands.ThreeBallAuton;
+import frc.robot.commands.TwoBallAuton;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
@@ -29,12 +30,15 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
-  private Drivetrain DRIVETRAIN_SUBSYSTEM = new Drivetrain();
-  private Intake INTAKE_SUBSYSTEM = new Intake();
-  private Conveyor CONVEYOR_SUBSYSTEM = new Conveyor();
-  private Shooter SHOOTER_SUBSSYSTEM = new Shooter();
-
   private Joystick CONTROLLER = new Joystick(0);
+
+  private Drivetrain DRIVE_SUBSYSTEM = new Drivetrain();
+
+  private Shooter SHOOTER_SUBSYSTEM = new Shooter();
+
+  private Intake INTAKE_SUBSYSTEM = new Intake();
+
+  private Conveyor CONVEYOR_SUBSYSTEM = new Conveyor();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -42,8 +46,6 @@ public class RobotContainer {
     configureButtonBindings();
 
     setDefaultCommands();
-    DRIVETRAIN_SUBSYSTEM.setDefaultCommand(new TankDriveCommand(DRIVETRAIN_SUBSYSTEM, CONTROLLER));
-
  
   }
 
@@ -54,16 +56,16 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(CONTROLLER, 1).whileHeld(new RunIntakeCommand(INTAKE_SUBSYSTEM));
-    new JoystickButton(CONTROLLER, 3).whileHeld(new RunConveyorCommand(CONVEYOR_SUBSYSTEM));
-    new JoystickButton(CONTROLLER, 4).whileHeld(new RunShooterCommand(SHOOTER_SUBSSYSTEM));
-    /*
-      X is 3
-      Y is 4
-    */
+    new JoystickButton(CONTROLLER, 6).whileHeld(new RunShooterCommand(SHOOTER_SUBSYSTEM)) ;
+    new JoystickButton(CONTROLLER, 2).whileHeld(new RunIntakeCommand(INTAKE_SUBSYSTEM));
+    //new JoystickButton(CONTROLLER, CONTROLLER.getRawButton(button)).whileHeld(new RunIntakeCommand(INTAKE_SUBSYSTEM));
+    new JoystickButton(CONTROLLER, 5).whileHeld(new RunConveyorCommand(CONVEYOR_SUBSYSTEM));
+
+    
   }
 
-  public void setDefaultCommands(){
+  private void setDefaultCommands(){
+    DRIVE_SUBSYSTEM.setDefaultCommand(new ArcadeDriveCommand(DRIVE_SUBSYSTEM, CONTROLLER));
   }
 
   /**
@@ -73,6 +75,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new FirstAuton(DRIVETRAIN_SUBSYSTEM, INTAKE_SUBSYSTEM);
-  }
+    return new TwoBallAuton(DRIVE_SUBSYSTEM, INTAKE_SUBSYSTEM, SHOOTER_SUBSYSTEM, CONVEYOR_SUBSYSTEM);
+   }
 }
+ 

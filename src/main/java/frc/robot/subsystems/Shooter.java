@@ -26,8 +26,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public void set(double leftPercent, double rightPercent){
-    shooterMotor1.set(ControlMode.PercentOutput, leftPercent);
-    shooterMotor2.set(ControlMode.PercentOutput, rightPercent);
+    shooterMotor1.set(ControlMode.PercentOutput, -leftPercent);
+    shooterMotor2.set(ControlMode.PercentOutput, -rightPercent);
   }
   
   public void stop(){

@@ -4,42 +4,28 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Drivetrain;
 
-public class AutoDrive extends CommandBase {
-  /** Creates a new AutoDrive. */
+public class AutoDrive extends SequentialCommandGroup {
   private Drivetrain DRIVE_SUBSYSTEM;
-  private double leftPercent;
-  private double rightPercent;
+  private double leftPerc, rightPerc;
 
-  public AutoDrive(Drivetrain drive, double left, double right) {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public AutoDrive(Drivetrain drive, double lP, double rP){
     DRIVE_SUBSYSTEM = drive;
-    leftPercent = left;
-    rightPercent = right;
-    addRequirements(DRIVE_SUBSYSTEM);
+    addRequirements(drive);
+
+    leftPerc=lP;
+    rightPerc=rP;
   }
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {}
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    DRIVE_SUBSYSTEM.set(leftPercent, rightPercent);
+  public void execute(){
+    DRIVE_SUBSYSTEM.set(leftPerc, rightPerc);
   }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
+  public void end(boolean interrupted){
     DRIVE_SUBSYSTEM.stop();
   }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+
 }

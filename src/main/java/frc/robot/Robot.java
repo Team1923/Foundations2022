@@ -8,6 +8,11 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonPipelineResult;
+import org.photonvision.targeting.PhotonTrackedTarget;
+
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,6 +29,12 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+
+  private PhotonCamera camera = new PhotonCamera("HD_Pro_Webcam_C920");
+  
+  private PhotonPipelineResult result;
+
+
 
   //private WPI_TalonFX leftMotor1 = new WPI_TalonFX(1);
 
@@ -57,6 +68,9 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    CameraServer.startAutomaticCapture();
+
 
     // //invert the "right" side of the drivetrain
     // rightMotor1.setInverted(InvertType.InvertMotorOutput);
@@ -138,6 +152,25 @@ public class Robot extends TimedRobot {
 
       // SmartDashboard.putNumber("Left Motor Percent Output", leftJoystickPercent);
       // SmartDashboard.putNumber("Right Motor Percent Output", rightJoystickPercent);
+
+      result=camera.getLatestResult();
+
+      boolean isTarget = result.hasTargets();
+
+      SmartDashboard.putBoolean("ISTARGET: ", isTarget);
+
+
+      if (isTarget){
+
+        PhotonTrackedTarget target = result.getBestTarget();
+
+        double yaw = target.getYaw();
+
+        SmartDashboard.putNumber("YAW: ", yaw);  
+      }
+      
+
+        
 
   }
 
