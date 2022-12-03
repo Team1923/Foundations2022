@@ -12,6 +12,7 @@ import frc.robot.commands.FirstAuton;
 import frc.robot.commands.RunConveyorCommand;
 import frc.robot.commands.RunIntakeCommand;
 import frc.robot.commands.RunShooterCommand;
+import frc.robot.commands.RunShooterPIDCommand;
 import frc.robot.commands.ThreeBallAuton;
 import frc.robot.commands.TwoBallAuton;
 import frc.robot.subsystems.Conveyor;
@@ -56,7 +57,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(CONTROLLER, 6).whileHeld(new RunShooterCommand(SHOOTER_SUBSYSTEM)) ;
+    // new JoystickButton(CONTROLLER, 6).whileHeld(new RunShooterCommand(SHOOTER_SUBSYSTEM)) ;
+    new JoystickButton(CONTROLLER, 6).whileHeld(new RunShooterPIDCommand(SHOOTER_SUBSYSTEM, 2750)) ;
     new JoystickButton(CONTROLLER, 2).whileHeld(new RunIntakeCommand(INTAKE_SUBSYSTEM));
     //new JoystickButton(CONTROLLER, CONTROLLER.getRawButton(button)).whileHeld(new RunIntakeCommand(INTAKE_SUBSYSTEM));
     new JoystickButton(CONTROLLER, 5).whileHeld(new RunConveyorCommand(CONVEYOR_SUBSYSTEM));
